@@ -20,6 +20,8 @@ public class RestaurantService {
     private final RestaurantRepository repository;
 
     public RestaurantDto create(RestaurantDto dto) {
+        if (dto.getCloseHour() > dto.getOpenHour())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         Restaurant newRestaurant = new Restaurant(
                 dto.getName(),
                 dto.getCategory(),
